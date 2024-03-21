@@ -17,7 +17,7 @@
                     Hotel Number
                 </th>
                 <td>
-                    @Model.ClickedHotel.HotelNr
+                    @Model.HotelToEdit.HotelNr
                 </td>
             </tr>
             <tr>
@@ -25,7 +25,7 @@
                     Name
                 </th>
                 <td>
-                    @Model.ClickedHotel.Navn
+                    @Model.HotelToEdit.Navn
                 </td>
             </tr>
             <tr>
@@ -33,7 +33,7 @@
                     Adress
                 </th>
                 <td>
-                    @Model.ClickedHotel.Adresse
+                    @Model.HotelToEdit.Adresse
                 </td>
             </tr>
         </tbody>
@@ -44,9 +44,17 @@
 
 <form method="post">
     <div class="form-group">
-        <label> Hotel Number @Model.ClickedHotel.HotelNr </label>
-        <input type="number" asp-for="@Model.ClickedHotel.HotelNr" />
-        <input type="submit" value="Submit" class="btn btn-primary" />
+        <label asp-for="@Model.EditHotelNumber">Hotel Number:</label>
+        <input asp-for="@Model.EditHotelNumber" placeholder="@Model.HotelToEdit.HotelNr"/>
     </div>
+    <div class="form-group">
+        <label asp-for="@Model.EditHotelName">Hotel Name:</label>
+        <input asp-for="@Model.EditHotelName" placeholder="@Model.HotelToEdit.Navn" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.EditHotelAddress">Hotel Adresse:</label>
+        <input asp-for="@Model.EditHotelAddress" placeholder="@Model.HotelToEdit.Adresse" />
+    </div>
+    <button type="submit" value="Submit" class="btn btn-primary" />
 </form>
 

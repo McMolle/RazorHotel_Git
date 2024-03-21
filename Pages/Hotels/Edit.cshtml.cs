@@ -7,8 +7,12 @@ namespace RazorHotelDB.Pages.Hotels
 {
     public class EditModel : PageModel
     {
-        [BindProperty]
-        public Hotel ClickedHotel { get; set; }
+        [BindProperty(SupportsGet = true)] public Hotel HotelToEdit { get; set; }
+
+        [BindProperty] public int EditHotelNumber { get; set; }
+        [BindProperty] public string EditHotelName { get; set; }
+        [BindProperty] public string EditHotelAddress { get; set; }
+        private Hotel _editedHotel;
 
         #region Dependencies and constructor-injection
         private IHotelService _hotelService;
@@ -19,7 +23,7 @@ namespace RazorHotelDB.Pages.Hotels
         #endregion
         public void OnGet(int hotelnumber)
         {
-            ClickedHotel = _hotelService.GetHotelFromId(hotelnumber);
+            HotelToEdit = _hotelService.GetHotelFromId(hotelnumber);
         }
 
         public void OnGetMolleEdit(int hotelnr)
@@ -29,13 +33,16 @@ namespace RazorHotelDB.Pages.Hotels
 
         public IActionResult OnPost()
         {
-            if (_hotelService.UpdateHotel(ClickedHotel, ClickedHotel.HotelNr))
+            _editedHotel = new Hotel(EditHotelNumber, EditHotelName, EditHotelAddress);
+            
+
+            if (_hotelService.UpdateHotel(_editedHotel, HotelToEdit.HotelNr))
             {
                 return RedirectToPage("/Hotels/GetAllHotels");
             }
             else
             {
-                return RedirectToPage("./");
+                return RedirectToPage("/Hotels/GetAllHotels");
             }
         }
     }

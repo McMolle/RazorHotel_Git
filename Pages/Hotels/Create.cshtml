@@ -2,3 +2,23 @@
 @model RazorHotelDB.Pages.Hotels.CreateModel
 @{
 }
+
+<h2>Message: @Model.Message</h2>
+
+<h1>Create a new hotel:</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.NewHotelNumber">Hotel number:</label>
+        <input asp-for="@Model.NewHotelNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.NewHotelName">Hotel name:</label>
+        <input asp-for="@Model.NewHotelName" class="form-control"/>
+    </div>
+    <div>
+        <label asp-for="@Model.NewHotelAdress">Hotel address:</label>
+        <input asp-for="@Model.NewHotelAdress" class="form-control"/>
+    </div>
+    <button type="submit" value="Create Hotel" class="btn btn-primary"></button>
+</form>

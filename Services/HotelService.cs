@@ -10,7 +10,7 @@ namespace RazorHotelDB.Services
         private string sqlString1 = "SELECT Hotel_No, Name, Address FROM Hotel";
         private string sqlString2 = "INSERT INTO Hotel VALUES(@ID, @Navn, @Adresse)";
         private string sqlString3 = "SELECT Hotel_No, Name, Address FROM Hotel WHERE Hotel_No = @searchID";
-        private string sqlString4 = "";
+        private string sqlString4 = "UPDATE Hotel SET Hotel_No = @EditedNumber, Name = @EditedName, Address = @EditedAddress WHERE Hotel_No = @HotelToEdit";
 
         public bool CreateHotel(Hotel hotel)
         {
@@ -128,9 +128,35 @@ namespace RazorHotelDB.Services
             throw new NotImplementedException();
         }
 
-        public bool UpdateHotel(Hotel hotel, int hotelNr)
+        public bool UpdateHotel(Hotel editedHotel, int hotelToEdit)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(sqlString4, connection);
+                    command.Parameters.AddWithValue("@EditedNumber", editedHotel.HotelNr);
+                    command.Parameters.AddWithValue("@EditedName", editedHotel.Navn);
+                    command.Parameters.AddWithValue("@EditedAddress", editedHotel.Adresse);
+                    command.Parameters.AddWithValue("@HotelToEdit", hotelToEdit);
+                    command.Connection.Open();
+                    int noOfRows = command.ExecuteNonQuery();
+                    return noOfRows == 1;
+                }
+                catch (SqlException sqlExp)
+                {
+                    Console.WriteLine("Database error" + sqlExp.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl: " + ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+            return false;
         }
     }
 }
