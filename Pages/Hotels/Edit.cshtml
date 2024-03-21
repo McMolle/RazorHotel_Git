@@ -1,0 +1,52 @@
+﻿@page
+@model RazorHotelDB.Pages.Hotels.EditModel
+@{
+    ViewData["Title"] = "EditHotel";
+}
+
+<h1>Edit Hotel</h1>
+
+
+<p>
+    <table class="table-info">
+        <caption style="display: inline-block; background: #16643d; color: #fff; padding: 5px 10px; border-radius: 8px">
+            <strong> Original Data: </strong> </caption>
+        <tbody>
+            <tr>
+                <th>
+                    Hotel Number
+                </th>
+                <td>
+                    @Model.ClickedHotel.HotelNr
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <td>
+                    @Model.ClickedHotel.Navn
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Adress
+                </th>
+                <td>
+                    @Model.ClickedHotel.Adresse
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</p>
+
+
+
+<form method="post">
+    <div class="form-group">
+        <label> Hotel Number @Model.ClickedHotel.HotelNr </label>
+        <input type="number" asp-for="@Model.ClickedHotel.HotelNr" />
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    </div>
+</form>
+

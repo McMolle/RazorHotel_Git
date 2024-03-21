@@ -1,0 +1,69 @@
+﻿@page
+@model RazorHotelDB.Pages.Hotels.GetAllHotelsModel
+@{
+    ViewData["Title"] = "Get All Hotels";
+}
+
+<p>
+    <a asp-page="Create">
+        <span style="display: inline-block; background: #BAFBF4; color: #295450; padding: 5px 15px; border-radius: 8px;">Create New Hotel</span>
+    </a>
+</p>
+
+<h4 style="color: aquamarine"> List of Hotels</h4>
+
+<h5> Hotel "deleted": 
+    @Model.Message;
+</h5>
+
+<a asp-page="TestPage" asp-route-hotelnumber="3">View hotel 3</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Hotel No
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.AllHotels.Count() > 0)
+        {
+            @foreach (var item in Model.AllHotels) //OnGetMyRooms (handler gedder MyRooms)
+            {
+                <tr>
+                    <td>
+                        @item.HotelNr
+                    </td>
+                    <td>
+                        @item.Navn
+                    </td>
+                    <td>
+                        @item.Adresse
+                    </td>
+                    <td>
+                        <a asp-page-handler="DeleteHandler" asp-route-hotelnumber="@item.HotelNr">
+                            Delete
+                        </a>
+
+                        <a asp-page="Edit" asp-route-hotelnumber="@item.HotelNr">
+                            Edit
+                        </a>
+
+                        <a asp-page="/Rooms/AllRooms" asp-route-hotelnumber="@item.HotelNr">
+                            View rooms
+                        </a>
+
+                        
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
